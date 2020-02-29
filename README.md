@@ -1,24 +1,27 @@
-# yimaishop
+# 宜买店
 
-## Project setup
+## 设置项目
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 编译和热重装以进行开发
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 编译并最小化生产
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### 整理和修复文件
 ```
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 自定义配置
+See [请参阅配置参考](https://cli.vuejs.org/config/).
+
+
+
