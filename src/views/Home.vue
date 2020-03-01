@@ -23,6 +23,11 @@
       </el-col>
     </el-row>
     <!-- 图片栏目 -->
+    <div class="showBanner">
+      <button id="nomarl">综合排序</button>
+      <button id="priceLowToHeight">价格由低到高</button>
+      <button id="priceHeightToLow">价格由高到低</button>
+    </div>
     <el-col>
       <el-col :span="24">
         <div class="grid-content bg-purple-light">
@@ -34,19 +39,24 @@
       <el-col>
         <div class="grid-content bg-purple">
           <div class="container">
-            <dl>
+            <dl
+              v-for="(item,index) in shopContainers"
+              :key="index"
+              :pid="item.goods_id"
+              @click="change(item.goods_id)"
+            >
               <dt>
-                <img :src="wechatLogo" />
+                <img :src="item.image" />
               </dt>
-              <dd>这是一个大的苹果</dd>
+              <dd>{{item.goods_name}}</dd>
               <dd>
                 原价:
-                <span class="oldVal">100</span>元,价格:
-                <span class="nowVal">45</span>元
+                <span class="oldVal">{{item.old_price}}</span>元,现价:
+                <span class="nowVal">{{item.price}}</span>元
               </dd>
               <dd>
                 销量：
-                <span>0</span>件
+                <span>{{item.pay_num}}</span>件
               </dd>
             </dl>
           </div>
@@ -58,6 +68,7 @@
 
 <script>
 import "../assets/onload.css";
+import { allData } from "../api/index.js";
 export default {
   data() {
     return {
@@ -65,8 +76,25 @@ export default {
       input: "",
       wechatLogo: "https://www.ymduo.com/static/img/topweixin.54d3f65.png",
       shopEg:
-        "http://yimaiec.oss-cn-shanghai.aliyuncs.com/yimaiec/goods/201901_16092458768664.jpg?x-oss-process=style/kuan-free"
+        "http://yimaiec.oss-cn-shanghai.aliyuncs.com/yimaiec/goods/201901_16092458768664.jpg?x-oss-process=style/kuan-free",
+      shopContainers: []
     };
+  },
+  methods: {
+    change(goods_id) {
+      this.$router.push({
+        //核心语句
+        path: "/detail",
+        query: { goods_id } //跳转的路径
+      });
+    }
+  },
+  mounted() {
+    allData().then(res => {
+      // console.log(res.data.result.data);
+      this.shopContainers = res.data.result.data;
+    });
+    console.log(this);
   }
 };
 </script>
